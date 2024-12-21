@@ -1,0 +1,97 @@
+
+local WinterEvent = workspace.Interiors:GetChildren()
+for num, i in WinterEvent do
+    if num == 1 then
+         _G.WinterEventFindName = i.Name
+     end
+end
+while wait() do
+    local Enemys = workspace.Interiors[_G.WinterEventFindName].LocalEnemies:GetChildren()
+    for num, i in Enemys do
+        task.wait(1)
+        pcall(function (...)
+            print(i.Name)
+            function getNil(name,class) for _,v in next, getnilinstances() do if v.ClassName==class and v.Name==name then return v;end end end
+            local args = {
+                [1] = getNil("Winter Fawn", "Model"),
+                [2] = {
+                    ["PetChargeReaction"] = true
+                }
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("PetAPI/ReplicateActiveReactions"):FireServer(unpack(args))
+            ---------------
+            function getNil(name,class) for _,v in next, getnilinstances() do if v.ClassName==class and v.Name==name then return v;end end end
+            local args = {
+                [1] = getNil("Winter Fawn", "Model"),
+                [2] = {
+                    ["NoticeObject"] = true
+                }
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("PetAPI/ReplicateActivePerformances"):FireServer(unpack(args))
+            --------------
+            function getNil(name,class) for _,v in next, getnilinstances() do if v.ClassName==class and v.Name==name then return v;end end end
+            local args = {
+                [1] = getNil("Winter Fawn", "Model"),
+                [2] = {
+                    ["eyes_id"] = "wide_open_eyes",
+                    ["effects"] = {
+                        [1] = "surprised"
+                    },
+                    ["idle_anim_speed"] = 1
+                }
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("PetAPI/ReplicatePerformanceModifiers"):FireServer(unpack(args))
+            ---------------------
+            function getNil(name,class) for _,v in next, getnilinstances() do if v.ClassName==class and v.Name==name then return v;end end end
+
+            local args = {
+                [1] = getNil("Winter Fawn", "Model"),
+                [2] = {}
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("PetAPI/ReplicateActivePerformances"):FireServer(unpack(args))
+            -------------------------
+            function getNil(name,class) for _,v in next, getnilinstances() do if v.ClassName==class and v.Name==name then return v;end end end
+
+            local args = {
+                [1] = getNil("Winter Fawn", "Model"),
+                [2] = {
+                    ["PetCharge"] = true
+                }
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("PetAPI/ReplicateActivePerformances"):FireServer(unpack(args))
+            ---------------------
+            function getNil(name,class) for _,v in next, getnilinstances() do if v.ClassName==class and v.Name==name then return v;end end end
+
+            local args = {
+                [1] = getNil("Winter Fawn", "Model"),
+                [2] = {
+                    ["eyes_id"] = "super_squinting_eyes",
+                    ["effects"] = {
+                        [1] = "smoke_trail",
+                        [2] = "emit_smoke"
+                    }
+                }
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("PetAPI/ReplicatePerformanceModifiers"):FireServer(unpack(args))
+            -------------------------
+            local args = {
+                [1] = _G.WinterEventFindName,
+                [2] = "hit_enemies",
+                [3] = {
+                    [1] = i.Name
+                },
+                [4] = "pet_charge"
+            }
+            
+            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/MessageServer"):FireServer(unpack(args))
+            
+            print('2')
+        end)
+    end
+end
