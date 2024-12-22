@@ -3,7 +3,6 @@ task.spawn(function()
 end)
 
 spawn(function()
-    print('Start')
     task.wait(30)
     while wait(1) do       
         local args = {
@@ -42,15 +41,7 @@ spawn(function()
                         break
                     else
                         pcall(function ()
-                            local args = {
-                                [1] = 'frostclaws_revenge::'.._G.WinterEventFindName,
-                                [2] = "hit_enemies",
-                                [3] = {
-                                    [1] = i2.Name
-                                },
-                                [4] = "pet_charge"
-                            }
-                            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/MessageServer"):FireServer(unpack(args))
+                            print('kill')
                         end)
                     end
                 end
