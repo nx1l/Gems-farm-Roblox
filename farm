@@ -3,6 +3,7 @@ task.spawn(function()
 end)
 
 spawn(function()
+    print('Start')
     task.wait(30)
     while wait(1) do       
         local args = {
