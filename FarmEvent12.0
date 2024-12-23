@@ -2,6 +2,7 @@ print('12.0')
 local Upgrade = 'charge_power'
 task.spawn(function()
     loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e4315db490a84e920190f83279c4732e.lua"))()
+    task.wait(30)
 end)
 
 spawn(function()
