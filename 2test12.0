@@ -1,0 +1,99 @@
+print('12.0')
+local Upgrade = 'charge_power'
+local HomeGUI = game:GetService("Players").LocalPlayer.PlayerGui.NewsApp
+local HomeReg = game:GetService("Players").LocalPlayer.PlayerGui.DailyLoginApp
+task.spawn(function()
+    repeat wait(5) print('Waiting loading adopt me...') until HomeGUI.Enabled == true
+    print('Script loading...')
+    repeat
+        task.wait(30)
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e4315db490a84e920190f83279c4732e.lua"))()
+    until HomeReg.Enabled == true
+    print('Success load script!')
+end)
+
+spawn(function()
+    task.wait(60)
+    while wait(1) do
+        repeat
+            task.wait(10)
+            local args = {
+                [1] = "frostclaws_revenge"
+            }       
+            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/LobbyCreate"):InvokeServer(unpack(args))
+            task.wait(1)    
+            local args = {
+                [1] = {
+                    ["startup_settings"] = {}
+                }
+            }        
+            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/LobbyStart"):FireServer(unpack(args))
+        until game:GetService("Players").LocalPlayer.PlayerGui.MinigameInGameApp.Enabled == true
+
+        local Event = workspace.Interiors:GetChildren()
+        for num, i in Event do
+            if string.find(i.Name, 'FrostclawsRevengeInterior') then
+                local originalString = i.Name
+                _G.WinterEventFindName = string.gsub(originalString, "FrostclawsRevengeInterior::", "")
+                print(_G.WinterEventFindName)
+                _G.EventName = i.Name
+            else
+                break
+            end
+        end
+        local RewardGUI = game:GetService("Players").LocalPlayer.PlayerGui.MinigameRewardsApp.Body
+        while wait() do
+            local UpgradesGUI = game:GetService("Players").LocalPlayer.PlayerGui.FrostclawsRevengeUpgradeApp
+            if RewardGUI.Visible == true then
+                break
+            elseif UpgradesGUI.Enabled == true and Upgrade == 'charge_power' then
+                task.wait(1)
+                local args = {
+                    [1] = 'frostclaws_revenge::'.._G.WinterEventFindName,
+                    [2] = "upgrade_chosen",
+                    [3] = "charge_power"
+                }
+                
+                game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/MessageServer"):FireServer(unpack(args))
+                UpgradesGUI.Enabled = true  
+                task.wait(1)
+                UpgradesGUI.Enabled = false
+                Upgrade = 'charge_rate'
+            elseif UpgradesGUI.Enabled == true and Upgrade == 'charge_rate' then
+                task.wait(1)
+                local args = {
+                    [1] = 'frostclaws_revenge::'.._G.WinterEventFindName,
+                    [2] = "upgrade_chosen",
+                    [3] = "hp_up"
+                }
+                
+                game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/MessageServer"):FireServer(unpack(args))
+                UpgradesGUI.Enabled = true  
+                task.wait(1)
+                UpgradesGUI.Enabled = false
+                Upgrade = 'charge_power'
+            else
+                pcall(function ()
+                    local Enemys = workspace.Interiors[_G.EventName].LocalEnemies:GetChildren()
+                    for num2, i2 in Enemys do
+                        if RewardGUI.Visible == true then
+                            break
+                        else
+                            pcall(function ()
+                                local args = {
+                                    [1] = 'frostclaws_revenge::'.._G.WinterEventFindName,
+                                    [2] = "hit_enemies",
+                                    [3] = {
+                                        [1] = i2.Name
+                                    },
+                                    [4] = "pet_charge"
+                                }
+                                game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/MessageServer"):FireServer(unpack(args))
+                            end)
+                        end
+                    end
+                end)
+            end
+        end
+    end
+end)
