@@ -1,7 +1,7 @@
 print('12.0')
 local Upgrade = 'charge_power'
 local HomeGUI = game:GetService("Players").LocalPlayer.PlayerGui.NewsApp
-local HomeReg = game:GetService("Players").LocalPlayer.PlayerGui.DailyLoginApp
+local HomeReg = game:GetService("Players").LocalPlayer.PlayerGui.ExtraButtonsApp
 task.spawn(function()
     repeat wait(5) print('Waiting loading adopt me...') until HomeGUI.Enabled == true
     print('Script loading...')
