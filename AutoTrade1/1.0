@@ -23,6 +23,7 @@ task.spawn(function()
                  if petData.kind == getgenv().Config["Pet_kind"] then
                     if petData.kind == nil then
                         print('no have pets')
+                        game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("TradeAPI/DeclineTrade"):FireServer()
                         task.wait(9999999999999)
                     else
                         local args = {
