@@ -1,12 +1,6 @@
 local clientData = require(game.ReplicatedStorage.ClientModules.Core.ClientData)
 local playerData = clientData.get_data()[tostring(game.Players.LocalPlayer)]
 local Pets = {}
-getgenv().Config = {
-    ["Nickname"] = "NextDevx",
-    ["Pet_kind"] = "winter_2024_frostclaw",
-    ["Pet_unique"] = ""
-}
-
      while wait(1) do
          pcall(function()
             print(123)
